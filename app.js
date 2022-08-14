@@ -118,20 +118,21 @@ app.use(session(sessionConfig));
 app.use(passport.initialize());
 app.use(passport.session());
 localStrategy(passport);
-// passport.use(new localStrategy(User.authenticate()));
-// passport.serializeUser(User.serializeUser());
-// passport.deserializeUser(User.deserializeUser());
 
 // if (process.env.NODE_ENV === "production") {
-// 	app.use(express.static(path.resolve(__dirname, "../frontend/build")));
+// 	app.use(express.static(path.resolve(__dirname, "../client/build")));
 // 	app.get("*", (req, res) => {
-// 		res.sendFile(path.resolve(__dirname, "../frontend/build", "index.html"));
+// 		res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
 // 	});
 // }
 
 app.use(function (req, res, next) {
 	if (req.isAuthenticated()) {
-		res.cookie("checkSession", true);
+		res.cookie("checkSession", true, {
+			maxAge: 1000 * 60 * 60 * 24,
+			sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // must be 'none' to enable cross-site delivery
+			secure: process.env.NODE_ENV === "production", // must be true if sameSite='none'
+		});
 	}
 	next();
 });
