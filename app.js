@@ -140,13 +140,6 @@ app.use(function (req, res, next) {
 	next();
 });
 
-if (process.env.NODE_ENV === "production") {
-	app.use(express.static(path.resolve(__dirname, "./frontend/build")));
-	app.get("*", (req, res) => {
-		res.sendFile(path.resolve(__dirname, "./frontend/build", "index.html"));
-	});
-}
-
 //Home page
 app.get(
 	"/api",
@@ -222,6 +215,13 @@ app.post(
 app.use("/api/:userId/posts", postRouter);
 app.use("/api/:userId/posts/:postId/comments", commentRouter);
 app.use("/api/", userRouter);
+
+if (process.env.NODE_ENV === "production") {
+	app.use(express.static(path.resolve(__dirname, "./frontend/build")));
+	app.get("*", (req, res) => {
+		res.sendFile(path.resolve(__dirname, "./frontend/build", "index.html"));
+	});
+}
 
 app.all("*", (req, res, next) => {
 	next(new ExpressError("Page not found", 404));
