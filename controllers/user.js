@@ -39,8 +39,8 @@ export const signup = async (req, res, next) => {
 	res.cookie("checkSession", true, {
 		// expires: Date.now() + 1000 * 60 * 60 * 24,
 		maxAge: 1000 * 60 * 60 * 24,
-		sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // must be 'none' to enable cross-site delivery
-		secure: process.env.NODE_ENV === "production", // must be true if sameSite='none'
+		// sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // must be 'none' to enable cross-site delivery
+		// secure: process.env.NODE_ENV === "production", // must be true if sameSite='none'
 	});
 	req.login(newUser, (err) => {
 		if (err) return next(err);
@@ -86,8 +86,8 @@ export const postSignIn = (req, res) => {
 	}
 	res.cookie("checkSession", true, {
 		// expires: Date.now() + 1000 * 60 * 60 * 24,
-		sameSite: "none",
-		secure: "true",
+		// sameSite: "none",
+		// secure: "true",
 		maxAge: 1000 * 60 * 60 * 24,
 		// sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // must be 'none' to enable cross-site delivery
 		// secure: process.env.NODE_ENV === "production", // must be true if sameSite='none'
