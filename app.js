@@ -116,10 +116,6 @@ const sessionConfig = {
 		httpOnly: true,
 		expires: Date.now() + 1000 * 60 * 60 * 24,
 		maxAge: 1000 * 60 * 60 * 24,
-		// sameSite: "none",
-		// secure: true,
-		// sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // must be 'none' to enable cross-site delivery
-		// secure: process.env.NODE_ENV === "production", // must be true if sameSite='none'
 	},
 };
 app.use(session(sessionConfig));
@@ -131,10 +127,6 @@ app.use(function (req, res, next) {
 	if (req.isAuthenticated()) {
 		res.cookie("checkSession", true, {
 			maxAge: 1000 * 60 * 60 * 24,
-			// sameSite: "none",
-			// secure: true,
-			// sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // must be 'none' to enable cross-site delivery
-			// secure: process.env.NODE_ENV === "production", // must be true if sameSite='none'
 		});
 	}
 	next();
@@ -171,7 +163,6 @@ app.get(
 			throw new ExpressError(data.message, data.status);
 		}
 		const data = { currentUser: req.user, status: 200, message: "" };
-		console.log(data);
 		return res.json(data);
 	})
 );
@@ -184,7 +175,7 @@ app.get(
 		posts.sort((a, b) => {
 			return a.createdAt < b.createdAt ? 1 : -1;
 		});
-		const data = { posts, pageTitle: "Recent Posts" };
+		const data = { posts, pageTitle: "Recent Posts", status: 200 };
 		return res.json(data);
 	})
 );
@@ -206,6 +197,7 @@ app.post(
 		const data = {
 			result: list,
 			pageTitle: "Search",
+			status: 200,
 		};
 		return res.json(data);
 	})
@@ -216,12 +208,12 @@ app.use("/api/:userId/posts", postRouter);
 app.use("/api/:userId/posts/:postId/comments", commentRouter);
 app.use("/api/", userRouter);
 
-if (process.env.NODE_ENV === "production") {
-	app.use(express.static(path.resolve(__dirname, "./frontend/build")));
-	app.get("*", (req, res) => {
-		res.sendFile(path.resolve(__dirname, "./frontend/build", "index.html"));
-	});
-}
+// if (process.env.NODE_ENV === "production") {
+app.use(express.static(path.resolve(__dirname, "./frontend/build")));
+app.get("*", (req, res) => {
+	res.sendFile(path.resolve(__dirname, "./frontend/build", "index.html"));
+});
+// }
 
 app.all("*", (req, res, next) => {
 	next(new ExpressError("Page not found", 404));

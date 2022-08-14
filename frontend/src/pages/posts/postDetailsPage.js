@@ -9,6 +9,7 @@ import {
 	Image,
 	ListGroup,
 	Row,
+	Spinner,
 } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -23,7 +24,6 @@ import {
 	getPostData,
 } from "../../store/post/postSlice";
 import Comment from "./comment";
-
 const initialState = { content: "" };
 
 export default function PostDetailsPage(props) {
@@ -112,12 +112,12 @@ export default function PostDetailsPage(props) {
 								<h2>{post.title}</h2>
 							</Card.Title>
 						</Card.Body>
-						{post.image?.thumbnail && (
+						{post.image?.mainThumbnail && (
 							<div className="mb-3">
 								<Image
 									className="px-5"
 									fluid={true}
-									src={post.image.thumbnail}
+									src={post.image.mainThumbnail}
 								/>
 							</div>
 						)}
@@ -169,8 +169,8 @@ export default function PostDetailsPage(props) {
 								</Row>
 							</Form>
 							<ListGroup variant="flush">{commentList}</ListGroup>
-							{comments.length > displayComments.length && (
-								<Row className="mt-3 mb-3 justify-content-center">
+							<Row className="mt-3 mb-3 justify-content-center">
+								{comments.length > displayComments.length && (
 									<Col md={{ span: 4 }}>
 										<Button
 											onClick={loadMore}
@@ -179,8 +179,8 @@ export default function PostDetailsPage(props) {
 											Load More
 										</Button>
 									</Col>
-								</Row>
-							)}
+								)}
+							</Row>
 						</Card.Body>
 					</Card>
 				</Col>

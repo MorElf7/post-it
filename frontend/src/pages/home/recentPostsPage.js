@@ -4,6 +4,7 @@ import {
 	Card,
 	Col,
 	Container,
+	Image,
 	ListGroup,
 	Row,
 	Spinner,
@@ -19,7 +20,7 @@ export default function RecentPostsPage(props) {
 	const posts = useSelector(getPagePosts);
 	const navigate = useNavigate();
 	const [counter, setCounter] = useState(1);
-	let displayPosts = posts?.slice(0, 25 * counter);
+	let displayPosts = posts?.slice(0, 15 * counter);
 
 	useEffect(() => {
 		dispatch(getRecentPosts());
@@ -34,7 +35,7 @@ export default function RecentPostsPage(props) {
 		setCounter(counter + 1);
 	};
 
-	if (posts && posts.length <= 0) {
+	if (!posts || posts.length <= 0) {
 		return (
 			<Container>
 				<Col
@@ -74,11 +75,11 @@ export default function RecentPostsPage(props) {
 							</Row>
 						</Card.Subtitle>
 					</Card.Body>
-					{post.image && (
+					{post.image?.listThumbnail && (
 						<div className="mb-3">
-							<Card.Image
-								className="px-5"
-								src={post.image.thumbnail}
+							<Image
+								className="ps-2"
+								src={post.image.listThumbnail}
 								alt=""
 							/>
 						</div>
@@ -99,14 +100,16 @@ export default function RecentPostsPage(props) {
 				</div>
 				<ListGroup variant="flush">{postsList}</ListGroup>
 				<Row className="mt-3 mb-3 justify-content-center">
-					<Col md={{ span: 4, offset: 3 }}>
-						<Button
-							onClick={loadMore}
-							variant="outline-dark"
-							width="60%">
-							Load More
-						</Button>
-					</Col>
+					{posts.length > displayPosts.length && (
+						<Col md={{ span: 4 }}>
+							<Button
+								onClick={loadMore}
+								variant="outline-dark"
+								width="60%">
+								Load More
+							</Button>
+						</Col>
+					)}
 				</Row>
 			</Col>
 		</Container>

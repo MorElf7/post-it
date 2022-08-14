@@ -13,8 +13,12 @@ const imageSchema = new Schema(
 	}
 );
 
-imageSchema.virtual("thumbnail").get(function () {
-	return this.url?.replace("/upload", "/upload/w_400,h_400,c_fill");
+imageSchema.virtual("listThumbnail").get(function () {
+	return this.url?.replace("/upload", "/upload/w_200,h_100,c_fill");
+});
+
+imageSchema.virtual("mainThumbnail").get(function () {
+	return this.url?.replace("/upload", "/upload/w_350,h_250,c_fill");
 });
 
 const postSchema = new Schema(

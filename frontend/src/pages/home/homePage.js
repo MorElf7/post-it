@@ -4,6 +4,7 @@ import {
 	Card,
 	Col,
 	Container,
+	Image,
 	ListGroup,
 	Row,
 	Spinner,
@@ -20,7 +21,7 @@ export default function HomePage() {
 	const posts = useSelector(getPagePosts);
 	const { isLoggedIn } = useGetSignedInUser();
 	const [counter, setCounter] = useState(1);
-	let displayPosts = posts?.slice(0, 25 * counter);
+	let displayPosts = posts?.slice(0, 15 * counter);
 
 	const loadMore = (event) => {
 		event.preventDefault();
@@ -36,7 +37,11 @@ export default function HomePage() {
 	return (
 		<>
 			{isLoggedIn && (
-				<SignedInHome posts={displayPosts} loadMore={loadMore} />
+				<SignedInHome
+					posts={posts}
+					displayPosts={displayPosts}
+					loadMore={loadMore}
+				/>
 			)}
 			{!isLoggedIn && <NotSignedInHome />}
 		</>
@@ -44,7 +49,7 @@ export default function HomePage() {
 }
 
 function SignedInHome(props) {
-	const { posts, loadMore } = props;
+	const { displayPosts, posts, loadMore } = props;
 
 	if (!posts || posts?.length <= 0) {
 		return (
@@ -58,7 +63,7 @@ function SignedInHome(props) {
 		);
 	}
 
-	const listItems = posts?.map((post) => (
+	const listItems = displayPosts?.map((post) => (
 		<ListGroup.Item key={post._id}>
 			<Card className="mx-3" border="white">
 				<Card.Body>
@@ -80,6 +85,15 @@ function SignedInHome(props) {
 						</Row>
 					</Card.Subtitle>
 				</Card.Body>
+				{post.image?.listThumbnail && (
+					<div className="mb-3">
+						<Image
+							className="ps-2"
+							src={post.image.listThumbnail}
+							alt=""
+						/>
+					</div>
+				)}
 				<Card.Body>{post.description}</Card.Body>
 			</Card>
 		</ListGroup.Item>
@@ -90,14 +104,16 @@ function SignedInHome(props) {
 				<ListGroup variant="flush">{listItems}</ListGroup>
 
 				<Row className="mt-3 mb-3 justify-content-center">
-					<Col md={{ span: 4, offset: 3 }}>
-						<Button
-							onClick={loadMore}
-							variant="outline-dark"
-							width="60%">
-							Load More
-						</Button>
-					</Col>
+					{posts.length > displayPosts.length && (
+						<Col md={{ span: 4 }}>
+							<Button
+								onClick={loadMore}
+								variant="outline-dark"
+								width="60%">
+								Load More
+							</Button>
+						</Col>
+					)}
 				</Row>
 			</Col>
 		</Container>

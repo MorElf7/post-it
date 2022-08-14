@@ -9,6 +9,7 @@ const initialState = {
 		posts: [],
 		user: { username: "", avatar: {}, follows: [], posts: [] },
 		comments: [],
+		searchResults: [],
 	},
 };
 
@@ -45,6 +46,7 @@ export const pageSlice = createSlice({
 					...state.value,
 					posts: response.posts,
 				},
+				status: response.status,
 			};
 		});
 		builder.addCase(getRecentPosts.fulfilled, (state, action) => {
@@ -56,6 +58,19 @@ export const pageSlice = createSlice({
 					...state.value,
 					posts: response.posts,
 				},
+				status: response.status,
+			};
+		});
+		builder.addCase(getSearchResult.fulfilled, (state, action) => {
+			const response = action.payload;
+			return {
+				...state,
+				title: response.pageTitle,
+				value: {
+					...state.value,
+					searchResults: response.result,
+				},
+				status: response.status,
 			};
 		});
 		builder.addCase(getUserData.fulfilled, (state, action) => {
@@ -105,11 +120,19 @@ export const getUserData = createAsyncThunk("user/getUserData", async (id) => {
 	return (await api.getUser(id)).data;
 });
 
+export const getSearchResult = createAsyncThunk(
+	"user/getSearchResult",
+	async (data) => {
+		return (await api.getSearchResult(data)).data;
+	}
+);
+
 export const getFlashShow = (state) => state.page.flash;
 export const getFlashType = (state) => state.page.flashType;
 export const getPagePosts = (state) => state.page.value.posts;
 export const getPageUser = (state) => state.page.value.user;
 export const getPageCommnents = (state) => state.page.value.comments;
+export const getResult = (state) => state.page.value.searchResults;
 
 export const getPageTitle = (state) => state.page.title;
 

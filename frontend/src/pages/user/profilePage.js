@@ -180,14 +180,16 @@ export default function ProfilePage(props) {
 									{posts.length > 0 && postsList}
 								</ListGroup>
 								<Row className="mb-3 justify-content-center">
-									<Col md={{ span: 4, offset: 3 }}>
-										<Button
-											onClick={loadMore}
-											variant="outline-dark"
-											width="60%">
-											Load More
-										</Button>
-									</Col>
+									{posts.length > displayPosts.length && (
+										<Col md={{ span: 4 }}>
+											<Button
+												onClick={loadMore}
+												variant="outline-dark"
+												width="60%">
+												Load More
+											</Button>
+										</Col>
+									)}
 								</Row>
 							</div>
 						</Card>

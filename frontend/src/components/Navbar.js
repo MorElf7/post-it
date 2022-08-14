@@ -1,9 +1,14 @@
+import { useState } from "react";
 import { Button, Container, Form, Nav, Navbar } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { useGetSignedInUser } from "../hooks";
-import { updateFlashShow, updateFlashType } from "../store/page/pageSlice";
+import {
+	getSearchResult,
+	updateFlashShow,
+	updateFlashType,
+} from "../store/page/pageSlice";
 import { logOut } from "../store/user/userSlice";
 
 export default function NavigationBar() {
@@ -11,6 +16,23 @@ export default function NavigationBar() {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const { isLoggedIn, currentUser } = useGetSignedInUser();
+	const [search, setSearch] = useState({ name: "" });
+	const handleChange = (event) => {
+		event.preventDefault();
+		setSearch((prev) => {
+			return {
+				...prev,
+				[event.target.name]: event.target.value,
+			};
+		});
+	};
+
+	const handleSearch = async (event) => {
+		event.preventDefault();
+		event.stopPropagation();
+		await dispatch(getSearchResult(search));
+		navigate("/search");
+	};
 
 	let rightSideNotLoggedIn = (
 		<Nav className="ms-auto">
@@ -26,13 +48,14 @@ export default function NavigationBar() {
 				variant="outline-primary">
 				Sign In
 			</Button>
-			<Form className="d-flex ">
+			<Form className="d-flex" onSubmit={handleSearch}>
 				<Form.Control
 					className="me-2"
-					type="search"
+					type="text"
 					placeholder="Search"
-					aria-label="Search"
 					name="name"
+					value={search.name}
+					onChange={handleChange}
 				/>
 				<Button variant="outline-success" type="submit">
 					Search
@@ -61,13 +84,14 @@ export default function NavigationBar() {
 			<Nav.Link href="/#" onClick={handleLogOut}>
 				Sign Out
 			</Nav.Link>
-			<Form className="d-flex">
+			<Form className="d-flex" onSubmit={handleSearch}>
 				<Form.Control
 					className="me-2"
 					type="text"
 					placeholder="Search"
-					aria-label="Search"
 					name="name"
+					value={search.name}
+					onChange={handleChange}
 				/>
 				<Button variant="outline-success" type="submit">
 					Search

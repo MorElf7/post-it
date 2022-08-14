@@ -1,5 +1,4 @@
 export const scriptSrcUrls = [
-	"https://post-it-fullstack.herokuapp.com/",
 	"https://stackpath.bootstrapcdn.com/",
 	"https://api.tiles.mapbox.com/",
 	"https://api.mapbox.com/",
@@ -9,7 +8,6 @@ export const scriptSrcUrls = [
 	"https://cdn.jsdelivr.net",
 ];
 export const styleSrcUrls = [
-	"https://post-it-fullstack.herokuapp.com/",
 	"https://cdn.jsdelivr.net/",
 	"https://kit-free.fontawesome.com/",
 	"https://stackpath.bootstrapcdn.com/",
@@ -20,7 +18,6 @@ export const styleSrcUrls = [
 	"https://ka-f.fontawesome.com/",
 ];
 export const connectSrcUrls = [
-	"https://post-it-fullstack.herokuapp.com/",
 	"https://api.mapbox.com/",
 	"https://ka-f.fontawesome.com/",
 	"https://a.tiles.mapbox.com/",
