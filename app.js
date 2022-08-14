@@ -67,7 +67,7 @@ app.use(mongoSanitize());
 app.use(
 	helmet.contentSecurityPolicy({
 		directives: {
-			defaultSrc: [],
+			defaultSrc: ["'self'"],
 			connectSrc: ["'self'", ...allowedContent.connectSrcUrls],
 			scriptSrc: [
 				"'unsafe-inline'",
