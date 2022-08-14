@@ -53,6 +53,8 @@ app.use(
 	cors({
 		origin: [
 			process.env.FRONTEND_APP_URL,
+			"http://localhost:3000",
+			"http://localhost:8000",
 			"https://post-it-fullstack.herokuapp.com",
 		], //location of react app
 		credentials: true,
