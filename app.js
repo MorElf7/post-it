@@ -24,8 +24,8 @@ import postRouter from "./routes/post";
 import userRouter from "./routes/user";
 import { ExpressError, wrapAsync } from "./utils";
 
-// const dbUrl = process.env.DB_URL || 'mongodb://127.0.0.1:27017/PostIt';
-const dbUrl = "mongodb://127.0.0.1:27017/PostIt";
+const dbUrl = process.env.DB_URL || "mongodb://127.0.0.1:27017/PostIt";
+// const dbUrl = "mongodb://127.0.0.1:27017/PostIt";
 mongoose.connect(dbUrl);
 
 const db = mongoose.connection;

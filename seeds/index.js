@@ -9,8 +9,8 @@ import Post from "../models/post";
 import User from "../models/user";
 
 const saltRounds = parseInt(process.env.SALTROUNDS) || 12;
-// const dbUrl = process.env.DB_URL || "mongodb://127.0.0.1:27017/PostIt";
-const dbUrl = "mongodb://127.0.0.1:27017/PostIt";
+const dbUrl = process.env.DB_URL || "mongodb://127.0.0.1:27017/PostIt";
+// const dbUrl = "mongodb://127.0.0.1:27017/PostIt";
 mongoose.connect(dbUrl);
 
 const db = mongoose.connection;
