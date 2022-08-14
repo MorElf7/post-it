@@ -1,7 +1,7 @@
 import express from "express";
 import multer from "multer";
 import passport from "passport";
-import { storage } from "../config/cloudinary";
+import { storage } from "../cloudinary";
 const router = express.Router({ mergeParams: true });
 const upload = multer({ storage });
 

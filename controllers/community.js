@@ -1,6 +1,6 @@
 import User from '../models/user';
 import Community from '../models/community';
-import {cloudinary} from '../config/cloudinary';
+import {cloudinary} from '../cloudinary';
 import {ExpressError} from '../utils';
 
 export const index = async (req, res) => {

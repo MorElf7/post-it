@@ -5,7 +5,7 @@ if (!process.env.NODE_ENV !== "production") {
 
 import bcrypt from "bcrypt";
 import passport from "passport";
-import { cloudinary } from "../config/cloudinary";
+import { cloudinary } from "../cloudinary";
 import User from "../models/user";
 import { ExpressError } from "../utils";
 

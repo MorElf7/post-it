@@ -1,7 +1,7 @@
 import express from 'express';
 const router = express.Router({mergeParams: true});
 import multer from 'multer';
-import {storage} from '../config/cloudinary';
+import {storage} from '../cloudinary';
 const upload = multer({storage});
 
 import * as Community from '../controllers/community';
