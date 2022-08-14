@@ -19,7 +19,7 @@ export default function RecentPostsPage(props) {
 	const posts = useSelector(getPagePosts);
 	const navigate = useNavigate();
 	const [counter, setCounter] = useState(1);
-	let displayPosts = posts.slice(0, 25 * counter);
+	let displayPosts = posts?.slice(0, 25 * counter);
 
 	useEffect(() => {
 		dispatch(getRecentPosts());
@@ -34,7 +34,7 @@ export default function RecentPostsPage(props) {
 		setCounter(counter + 1);
 	};
 
-	if (posts.length <= 0) {
+	if (posts && posts.length <= 0) {
 		return (
 			<Container>
 				<Col
@@ -51,7 +51,7 @@ export default function RecentPostsPage(props) {
 		);
 	}
 	let postsList = <></>;
-	if (displayPosts.length > 0) {
+	if (displayPosts && displayPosts.length > 0) {
 		postsList = displayPosts.map((post) => (
 			<ListGroup.Item key={post._id}>
 				<Card className="mx-3" border="white">
