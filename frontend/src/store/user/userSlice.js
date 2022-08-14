@@ -62,7 +62,6 @@ export const userSlice = createSlice({
 		});
 		builder.addCase(getCurrentUser.fulfilled, (state, action) => {
 			const response = action.payload;
-			console.log(response.currentUser);
 			if (400 <= response.status && response.status < 500) {
 				return {
 					...state,

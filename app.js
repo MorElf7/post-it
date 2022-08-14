@@ -171,6 +171,7 @@ app.get(
 			throw new ExpressError(data.message, data.status);
 		}
 		const data = { currentUser: req.user, status: 200, message: "" };
+		console.log(data);
 		return res.json(data);
 	})
 );
