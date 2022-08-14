@@ -52,10 +52,10 @@ export default function NavigationBar() {
 	};
 	let rightSideLoggedIn = (
 		<Nav className="ms-auto">
-			<Nav.Link className="" href={`/${currentUser._id}`}>
-				{currentUser.username}
+			<Nav.Link className="" href={`/${currentUser?._id}`}>
+				{currentUser?.username}
 			</Nav.Link>
-			<Nav.Link className="" href={`/${currentUser._id}/settings`}>
+			<Nav.Link className="" href={`/${currentUser?._id}/settings`}>
 				Account settings
 			</Nav.Link>
 			<Nav.Link href="/#" onClick={handleLogOut}>
@@ -109,7 +109,7 @@ export default function NavigationBar() {
 						{isLoggedIn && (
 							<Nav.Link
 								className=""
-								href={`/${currentUser._id}/posts/new`}>
+								href={`/${currentUser?._id}/posts/new`}>
 								New Post
 							</Nav.Link>
 						)}
