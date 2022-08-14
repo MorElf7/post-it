@@ -1,4 +1,4 @@
-import { cloudinary } from "../cloudinary";
+import { cloudinary } from "../config/cloudinary.js";
 import Post from "../models/post";
 import User from "../models/user";
 import { ExpressError } from "../utils";

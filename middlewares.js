@@ -1,4 +1,4 @@
-import { cloudinary } from "./cloudinary";
+import { cloudinary } from "./config/cloudinary.js";
 import Comment from "./models/comment";
 import Community from "./models/community";
 import Post from "./models/post";
