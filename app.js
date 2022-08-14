@@ -16,7 +16,7 @@ import helmet from "helmet";
 import methodOverride from "method-override";
 import mongoose from "mongoose";
 import passport from "passport";
-import _ from "./env";
+import _ from "./env.js";
 import localStrategy from "./passport";
 
 import * as allowedContent from "./allowedContent";
