@@ -45,12 +45,13 @@ app.listen(port, () => {
 	console.log(`Serving on port ${port}`);
 });
 
+app.set("trust proxy", 1);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(methodOverride("_method"));
 app.use(
 	cors({
-		origin: "http://localhost:3000", //location of react app
+		origin: [process.env.FRONTEND_APP_URL], //location of react app
 		credentials: true,
 	})
 );
@@ -109,6 +110,8 @@ const sessionConfig = {
 		httpOnly: true,
 		expires: Date.now() + 1000 * 60 * 60 * 24,
 		maxAge: 1000 * 60 * 60 * 24,
+		sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // must be 'none' to enable cross-site delivery
+		secure: process.env.NODE_ENV === "production", // must be true if sameSite='none'
 	},
 };
 app.use(session(sessionConfig));
@@ -118,6 +121,13 @@ localStrategy(passport);
 // passport.use(new localStrategy(User.authenticate()));
 // passport.serializeUser(User.serializeUser());
 // passport.deserializeUser(User.deserializeUser());
+
+// if (process.env.NODE_ENV === "production") {
+// 	app.use(express.static(path.resolve(__dirname, "../frontend/build")));
+// 	app.get("*", (req, res) => {
+// 		res.sendFile(path.resolve(__dirname, "../frontend/build", "index.html"));
+// 	});
+// }
 
 app.use(function (req, res, next) {
 	if (req.isAuthenticated()) {
