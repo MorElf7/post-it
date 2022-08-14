@@ -135,15 +135,15 @@ app.use(function (req, res, next) {
 	next();
 });
 
-if (process.env.NODE_ENV === "production") {
-	app.use(express.static(path.resolve(__dirname, "./frontend/build")));
-	app.get("*", (req, res) => {
-		res.sendFile(path.resolve(__dirname, "./frontend/build", "index.html"));
-	});
-}
+// if (process.env.NODE_ENV === "production") {
+// 	app.use(express.static(path.resolve(__dirname, "./frontend/build")));
+// 	app.get("*", (req, res) => {
+// 		res.sendFile(path.resolve(__dirname, "./frontend/build", "index.html"));
+// 	});
+// }
 //Home page
 app.get(
-	"/api",
+	"/",
 	wrapAsync(async (req, res) => {
 		let posts = null;
 		if (req.user) {
@@ -162,7 +162,7 @@ app.get(
 
 //Get current user
 app.get(
-	"/api/user",
+	"/user",
 	wrapAsync(async (req, res) => {
 		if (!req.isAuthenticated()) {
 			const data = {
@@ -179,7 +179,7 @@ app.get(
 
 //Recent Posts
 app.get(
-	"/api/posts",
+	"/posts",
 	wrapAsync(async (req, res) => {
 		let posts = await Post.find({}).populate("user");
 		posts.sort((a, b) => {
@@ -192,7 +192,7 @@ app.get(
 
 //Search
 app.post(
-	"/api/search",
+	"/search",
 	wrapAsync(async (req, res) => {
 		const { name } = req.body;
 		User.createIndexes();
@@ -213,9 +213,9 @@ app.post(
 );
 
 // app.use('/api/communities', communityRouter)
-app.use("/api/:userId/posts", postRouter);
-app.use("/api/:userId/posts/:postId/comments", commentRouter);
-app.use("/api/", userRouter);
+app.use("/:userId/posts", postRouter);
+app.use("/:userId/posts/:postId/comments", commentRouter);
+app.use("/", userRouter);
 
 app.all("*", (req, res, next) => {
 	next(new ExpressError("Page not found", 404));
