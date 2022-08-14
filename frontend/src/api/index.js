@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const config = {
-	baseURL: "https://post-it-social-media-api.herokuapp.com",
+	baseURL: "/api",
 	withCredentials: true,
 	validateStatus: (status) => {
 		return status < 500;
