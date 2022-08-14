@@ -1,0 +1,46 @@
+a {
+	text-decoration: none;
+	color: black;
+}
+
+a:hover {
+	text-decoration: underline;
+	color: black;
+}
+
+#more {
+	display: none;
+}
+
+#editCommentTextArea {
+	border: nones;
+	outline: none;
+}
+
+#userBio {
+	resize: none;
+	width: 100%;
+	height: 120px;
+}
+
+#postDescription {
+	resize: none;
+	width: 100%;
+	height: 150px;
+}
+
+#commentTextArea {
+	resize: none;
+	width: 100%;
+	height: 80px;
+}
+
+#editCommentTextArea {
+	resize: none;
+	width: 100%;
+	height: 80px;
+}
+
+.dropdown-toggle::after {
+	display: none !important;
+}

@@ -51,7 +51,10 @@ app.use(express.json());
 app.use(methodOverride("_method"));
 app.use(
 	cors({
-		origin: [process.env.FRONTEND_APP_URL], //location of react app
+		origin: [
+			process.env.FRONTEND_APP_URL,
+			"https://post-it-social-media-api.herokuapp.com",
+		], //location of react app
 		credentials: true,
 	})
 );
@@ -110,8 +113,8 @@ const sessionConfig = {
 		httpOnly: true,
 		expires: Date.now() + 1000 * 60 * 60 * 24,
 		maxAge: 1000 * 60 * 60 * 24,
-		sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // must be 'none' to enable cross-site delivery
-		secure: process.env.NODE_ENV === "production", // must be true if sameSite='none'
+		// sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // must be 'none' to enable cross-site delivery
+		// secure: process.env.NODE_ENV === "production", // must be true if sameSite='none'
 	},
 };
 app.use(session(sessionConfig));
@@ -119,12 +122,14 @@ app.use(passport.initialize());
 app.use(passport.session());
 localStrategy(passport);
 
-// if (process.env.NODE_ENV === "production") {
-// 	app.use(express.static(path.resolve(__dirname, "../client/build")));
-// 	app.get("*", (req, res) => {
-// 		res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
-// 	});
-// }
+if (process.env.NODE_ENV === "production") {
+	app.use(express.static(path.resolve(__dirname, "../frontend/build")));
+	app.get("*", (req, res) => {
+		res.sendFile(
+			path.resolve(__dirname, "../frontend/build", "index.html")
+		);
+	});
+}
 
 app.use(function (req, res, next) {
 	if (req.isAuthenticated()) {
@@ -139,7 +144,7 @@ app.use(function (req, res, next) {
 
 //Home page
 app.get(
-	"/",
+	"/api",
 	wrapAsync(async (req, res) => {
 		let posts = null;
 		if (req.user) {
@@ -158,7 +163,7 @@ app.get(
 
 //Get current user
 app.get(
-	"/user",
+	"/api/user",
 	wrapAsync(async (req, res) => {
 		if (!req.isAuthenticated()) {
 			const data = {
@@ -174,7 +179,7 @@ app.get(
 
 //Recent Posts
 app.get(
-	"/posts",
+	"/api/posts",
 	wrapAsync(async (req, res) => {
 		let posts = await Post.find({}).populate("user");
 		posts.sort((a, b) => {
@@ -187,7 +192,7 @@ app.get(
 
 //Search
 app.post(
-	"/search",
+	"/api/search",
 	wrapAsync(async (req, res) => {
 		const { name } = req.body;
 		User.createIndexes();
@@ -207,10 +212,10 @@ app.post(
 	})
 );
 
-// app.use('/communities', communityRouter)
-app.use("/:userId/posts", postRouter);
-app.use("/:userId/posts/:postId/comments", commentRouter);
-app.use("/", userRouter);
+// app.use('/api/communities', communityRouter)
+app.use("/api/:userId/posts", postRouter);
+app.use("/api/:userId/posts/:postId/comments", commentRouter);
+app.use("/api/", userRouter);
 
 app.all("*", (req, res, next) => {
 	next(new ExpressError("Page not found", 404));
