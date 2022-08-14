@@ -63,8 +63,8 @@ export default function NavigationBar() {
 			</Form>
 		</Nav>
 	);
-	const handleLogOut = (event) => {
-		dispatch(logOut());
+	const handleLogOut = async (event) => {
+		await dispatch(logOut());
 		dispatch(updateFlashShow(true));
 		dispatch(updateFlashType("user"));
 		if (location.pathname === "/") {

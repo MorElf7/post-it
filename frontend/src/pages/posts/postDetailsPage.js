@@ -91,8 +91,6 @@ export default function PostDetailsPage(props) {
 			<Comment
 				key={comment._id}
 				comment={comment}
-				canEditComment={canEditComment}
-				setCanEditComment={setCanEditComment}
 			/>
 		));
 	}

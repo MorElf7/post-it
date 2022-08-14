@@ -37,6 +37,7 @@ export const signup = async (req, res, next) => {
 	newUser.follows.push(newUser._id);
 	await newUser.save();
 	res.cookie("checkSession", true, {
+		expires: Date.now() + 1000 * 60 * 60 * 24,
 		maxAge: 1000 * 60 * 60 * 24,
 	});
 	req.login(newUser, (err) => {
@@ -82,6 +83,7 @@ export const postSignIn = (req, res) => {
 		};
 	}
 	res.cookie("checkSession", true, {
+		expires: Date.now() + 1000 * 60 * 60 * 24,
 		maxAge: 1000 * 60 * 60 * 24,
 	});
 	res.json(data);

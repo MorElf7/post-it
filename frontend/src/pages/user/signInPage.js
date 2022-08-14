@@ -63,8 +63,8 @@ export default function SignInPage() {
 		navigate("/");
 	}
 
-	function onSubmit(data) {
-		dispatch(logIn(data));
+	async function onSubmit(data) {
+		await dispatch(logIn(data));
 		dispatch(updateFlashType("user"));
 		dispatch(updateFlashShow(true));
 	}

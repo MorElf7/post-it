@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const config = {
-	baseURL: "https://post-it-fullstack.herokuapp.com/api",
+	baseURL: "http://localhost:8000/api",
 	withCredentials: true,
 	validateStatus: (status) => {
 		return status < 500;

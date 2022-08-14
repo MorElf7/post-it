@@ -1,4 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useState } from "react";
 import {
 	Button,
 	Col,
@@ -21,7 +22,8 @@ import {
 import TimeZoneConverter from "../../utils/timeZoneConverter";
 
 export default function Comment(props) {
-	const { comment, canEditComment, setCanEditComment } = props;
+	const { comment } = props;
+	const [canEditComment, setCanEditComment] = useState(false);
 	const dispatch = useDispatch();
 	const { userId, postId } = useParams();
 	const {
