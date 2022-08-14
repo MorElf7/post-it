@@ -9,7 +9,7 @@
 		"dev": "nodemon --experimental-modules --es-module-specifier-resolution=node app.js",
 		"start": "node --experimental-modules --es-module-specifier-resolution=node app.js",
 		"seeds": "node --es-module-specifier-resolution=node seeds ",
-		"postHerokiBuilds": "cd frontend && yarn install && yarn build"
+		"build": "cd frontend && yarn install && yarn build"
 	},
 	"author": "Bang Cao",
 	"license": "ISC",
