@@ -56,6 +56,7 @@ app.use(
 			"http://localhost:3000",
 			"http://localhost:8000",
 			"https://post-it-fullstack.herokuapp.com",
+			"https://post-it-social-media.netlify.app",
 		], //location of react app
 		credentials: true,
 	})
@@ -115,6 +116,8 @@ const sessionConfig = {
 		httpOnly: true,
 		expires: Date.now() + 1000 * 60 * 60 * 24,
 		maxAge: 1000 * 60 * 60 * 24,
+		sameSite: "none",
+		secure: true,
 		// sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // must be 'none' to enable cross-site delivery
 		// secure: process.env.NODE_ENV === "production", // must be true if sameSite='none'
 	},
