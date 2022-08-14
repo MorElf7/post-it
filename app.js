@@ -17,9 +17,9 @@ import methodOverride from "method-override";
 import mongoose from "mongoose";
 import passport from "passport";
 import _ from "./config/env.js";
-import localStrategy from "./config/passport.js";
+import localStrategy from "./config/passport";
 
-import * as allowedContent from "./allowedContent.js";
+import * as allowedContent from "./allowedContent";
 import Post from "./models/post";
 import User from "./models/user";
 import commentRouter from "./routes/comment";
