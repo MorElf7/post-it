@@ -16,8 +16,8 @@ import helmet from "helmet";
 import methodOverride from "method-override";
 import mongoose from "mongoose";
 import passport from "passport";
-import _ from "./config/env";
 import localStrategy from "./config/passport";
+import _ from "./env";
 
 import * as allowedContent from "./allowedContent";
 import Post from "./models/post";
