@@ -1,34 +1,16 @@
-### Routes:
-- GET / Home *
-- GET /posts  All Posts *
-- POST /search Search Result Page *
-- GET /user Current user *
-- /:userId/posts Post CRUD 
-- /:userId/posts/:postId/comments Comment CRUD 
-- /users & /:userId User CRUD
+# PostIt
 
-#### Post CRUD
-- GET /new New post form
-- POST / Create post *
-- GET /:postId/edit Update post form
-- PUT /:postId Update post *
-- DELETE /:postId Delete post *
-- GET /:postId Show post *
+## Introduction
 
-#### Comment CRUD
-- POST / Create Comment *
-- PUT /:commentId Update Comment * 
-- DELETE /:commentId Delete Comment *
+This is my attempt at learning Node.js and React, building a minimal social app call PostIt.
 
-#### User CRUD
-- GET /users All user
-- GET /users/signup Sign up form
-- POST /users Register the user *
-- GET /users/signin Sign in form
-- POST /users/signin Sign the user in *
-- GET /users/signout Sign out the user *
-- GET /:userId Get user *
-- GET /:userId/settings Edit user form
-- PUT /:userId Update user *
-- PATCH /:userId Follow/Unfollow a user *
-- DELETE /:userId Delete a user *
+The tech stack is Node.js JavaScript, MongoDB for the backend, and React JavaScript for the frontend.
+
+It has basic functionalities:
+
+- User can sign up/sign in
+- User can create text and image post
+- User can search for post/users through the search bar employing MongoDB indexes
+- User can follow another user to get their most recents posts
+- User can comment on other posts for some basic communicating purpose
+- User can edit/change their profiles, passwords, settings, ...
